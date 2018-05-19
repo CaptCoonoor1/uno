@@ -3,6 +3,9 @@ var app = express();
 var port = 3000;
 var server = app.listen(port);
 
+//card example
+var deckList = [
+"1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3"];
 //this array will have all the connected playeds id
 var playerList = [];
 app.use(express.static('public'));
@@ -16,19 +19,28 @@ var io = socket(server);
 io.sockets.on('connection', newConnection);
 io.sockets.on('disconnect', userDisconnect);
 
-
 function newConnection(socket) {
     console.log('new connection ' + socket.id);
-    socket.on('disconnect', userDisconnect);
+    socket.on('hello', welcomeNewPlayer);
     //add connected player to the list
     //idea is to let one user at the time draw, hopefully
     playerList.push(socket.id);
+
+    //if the game is full start the game
+    if (playerList === 4) {
+      startGame();
+    }
 
 
     //if there  is a message called example, trigger function "example"
     //socket.on('example', example);
 }
+  function welcomeNewPlayer(data) {
 
+    console.log(data);
+    console.log("welcomeNewPlayer");
+
+  }
 
 function userDisconnect(socket) {
     //on disconnect remove user from the array
@@ -37,8 +49,10 @@ function userDisconnect(socket) {
         if (playerList[i] === socket.id) {
             playerList.splice(i, 1);
         }
-
     }
+}
+
+function startGame() {
 
 
 }

@@ -1,15 +1,19 @@
 var socket;
 var joinButton;
-
+var buttons =  new Array(6);
 function setup() {
   //p5.js canvas
-  createCanvas(100, 100);
+  createCanvas(600, 600);
   background(0);
 
-  joinButton = createButton('Join!');
-  joinButton.position(19, 19);
-  joinButton.mousePressed(joinButtonPressed);
-  socket = io.connect('http://localhost:3000/');
+  for(x = 0; x < 4 ; x++){
+    //4 players
+    for (var i = 0; i < buttons.length; i++) {
+     buttons[i] = createButton('pos' + i);
+     buttons[i].position(i*100  , x * 100);
+   }
+}
+
 
 
 }

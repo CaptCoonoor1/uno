@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var port = 3000;
 var server = app.listen(port);
+var hands;
 
 //card example
 var deckList = [
@@ -66,13 +67,15 @@ function clientButtonPressed(data) {
   //playerList[1] can use buttons on x= ? , y=150
   //...
   for (var i = 0; i < playerList.length; i++) {
-    let yValue = [50,150,250,350];
+    let yValue = [50, 150, 250, 350];
+    let xValue = [50, 150, 250, 350];
     if (data.id == playerList[i] && data.y == yValue[i]) {
       //playerList[0] can use buttons on x= ? , y=50
-      console.log('this is your card');
+      console.log(playerList[i]);
+      console.log(yValue[i]);
+      console.log('this is your card:' + xValue.indexOf(data.x));
     }
   }
-
 }
 
 function clientJoinGamePressed(data) {

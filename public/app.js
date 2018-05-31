@@ -8,6 +8,9 @@ var canvasWidth = 600;
 var canvasHeight = 800;
 var playerList;
 var me;
+var player1Cards,player2Cards,player3Cards,player4Cards =[];
+
+
 
 function setup() {
   //////////////////////////////////////////////////////////////

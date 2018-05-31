@@ -5,7 +5,8 @@ var server = app.listen(port);
 
 //card example
 var deckList = [
-"1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3"];
+  "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3"
+];
 //this array will have all the connected playeds id
 var playerList = [];
 app.use(express.static('public'));
@@ -17,42 +18,69 @@ var io = socket(server);
 
 //event for new connection
 io.sockets.on('connection', newConnection);
-io.sockets.on('disconnect', userDisconnect);
+
+
 
 function newConnection(socket) {
-    console.log('new connection ' + socket.id);
-    socket.on('hello', welcomeNewPlayer);
-    //add connected player to the list
-    //idea is to let one user at the time draw, hopefully
-    playerList.push(socket.id);
+  playerList.push(socket.id);
+  console.log('new connection ' + socket.id + ' playerList = ' + playerList.length);
+  io.sockets.emit('getArray', playerList);
 
-    //if the game is full start the game
-    if (playerList === 4) {
-      startGame();
+  socket.on('disconnect', function() {
+    console.log('Got disconnect!' + socket.id);
+    for (var i = 0; i < playerList.length; i++) {
+      if (playerList[i] === socket.id) {
+        playerList.splice(i, 1);
+      }
     }
+  });
+  socket.on('joinGame', clientJoinGamePressed);
+  socket.on('buttonPressed', clientButtonPressed);
 
 
-    //if there  is a message called example, trigger function "example"
-    //socket.on('example', example);
-}
-  function welcomeNewPlayer(data) {
+  //add connected player to the list
+  //idea is to let one user at the time draw, hopefully
 
-    console.log(data);
-    console.log("welcomeNewPlayer");
-
+  //if the game is full start the game
+  if (playerList.length >= 4) {
+    startGame();
   }
 
-function userDisconnect(socket) {
-    //on disconnect remove user from the array
-    console.log("User disconnected " + socket.id);
-    for (var i = 0; i < playerList.length; i++) {
-        if (playerList[i] === socket.id) {
-            playerList.splice(i, 1);
-        }
+
+  //if there  is a message called example, trigger function "example"
+  //socket.on('example', example);
+}
+
+function welcomeNewPlayer(data) {
+
+  console.log(data);
+  console.log("welcomeNewPlayer");
+
+}
+
+function clientButtonPressed(data) {
+  console.log('hey');
+  console.log(data);
+  console.log(playerList);
+  //playerList[0] can use buttons on x= ? , y=50
+  //playerList[1] can use buttons on x= ? , y=150
+  //...
+  for (var i = 0; i < playerList.length; i++) {
+    let yValue = [50,150,250,350];
+    if (data.id == playerList[i] && data.y == yValue[i]) {
+      //playerList[0] can use buttons on x= ? , y=50
+      console.log('this is your card');
     }
+  }
+
+}
+
+function clientJoinGamePressed(data) {
+  console.log(data);
+  io.sockets.emit('clientJoinGamePressed', data);
 }
 
 function startGame() {
-
+  console.log('game starting');
 
 }

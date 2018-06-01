@@ -2,12 +2,7 @@ var express = require('express');
 var app = express();
 var port = 3000;
 var server = app.listen(port);
-var hands;
 
-//card example
-var deckList = [
-  "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3"
-];
 //this array will have all the connected playeds id
 var playerList = [];
 app.use(express.static('public'));
@@ -44,6 +39,8 @@ function newConnection(socket) {
 
   //if the game is full start the game
   if (playerList.length >= 4) {
+
+
     startGame();
   }
 
@@ -85,5 +82,16 @@ function clientJoinGamePressed(data) {
 
 function startGame() {
   console.log('game starting');
+  for (var i = 0; i < playerList.length; i++) {
+    var hand = {
+      playerId: playerList[i],
+      card1: Math.floor((Math.random() * 5) + 1),
+      card2: Math.floor((Math.random() * 5) + 1),
+      card3: Math.floor((Math.random() * 5) + 1),
+      card4: Math.floor((Math.random() * 5) + 1)
+    };
+    //send this to the clients 
+    console.log(hand);
+  }
 
 }

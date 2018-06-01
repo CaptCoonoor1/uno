@@ -90,7 +90,15 @@ function startGame() {
       card3: Math.floor((Math.random() * 5) + 1),
       card4: Math.floor((Math.random() * 5) + 1)
     };
-    //send this to the clients 
+    //// TODO: send this to the clients
+    //not working properly so just ignore the if part, might fix later;
+    //have to send to one client, but this sends to all
+    if (hand.playerId == playerList[i]) {
+      io.sockets.emit('getHand', hand)
+
+      console.log('getHand send to clients');
+
+    }
     console.log(hand);
   }
 

@@ -8,7 +8,7 @@ var canvasWidth = 600;
 var canvasHeight = 800;
 var playerList;
 var me;
-var player1Cards,player2Cards,player3Cards,player4Cards =[];
+var myHand=[];
 
 
 
@@ -17,6 +17,7 @@ function setup() {
   ///////////////////the actually socket connection////////////
   socket = io.connect('http://localhost:3000/');
   console.log("hello" + socket.id);
+  socket.on('getHand', getHand);
 
   //////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////
@@ -87,4 +88,14 @@ function joinButtonPressed() {
             id: socket.id
         };
         socket.emit('joinGame', data);
+}
+
+function getHand(hand) {
+  if (hand.playerId == me) {
+    myhand = hand;
+    console.log('my hand');
+    console.log(hand);
+    console.log('________________________');
+  }
+  console.log(hand);
 }

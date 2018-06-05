@@ -9,6 +9,7 @@ var canvasHeight = 800;
 var playerList;
 var me;
 var myHand=[];
+var textArray=[];
 
 
 
@@ -43,16 +44,22 @@ function testFunction() {
   console.log("button pressed" + "x: " + this.x + " y: " + this.y);
   findButton(this.x,this.y);
 
+
 }
 
 
 function createButtons() {
   for (x = 0; x < playerList.length; x++) {
     //4 players
-      text("hey", 40, 40);
-      text("hey", 40, 140);
-      text("hey", 40, 240);
-      text("hey", 40, 340);
+    let yArray=[40,140,240,340];
+    textArray[x]= text("player "+x, 40, yArray[x]);
+    /*
+      text("player0", 40, 40);
+      text("player1", 40, 140);
+      text("player2", 40, 240);
+      text("player3", 40, 340);
+      */
+
     for (var i = 0; i < buttons.length; i++) {
       buttons[i] = createButton('card:' + i);
       buttons[i].position(i * 100 + 50, x * 100 + 50);
@@ -98,4 +105,13 @@ function getHand(hand) {
     console.log('________________________');
   }
   console.log(hand);
+}
+
+function setCardText(hand) {
+  for (var i = 0; i < playerList.length; i++) {
+    if (playerList[i] == me) {
+
+    }
+  }
+
 }

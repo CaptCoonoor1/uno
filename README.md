@@ -2,6 +2,10 @@
 
 # npm setup
 download the project, run: npm install
+## How to start the project
+1. open cmd, powershell, terminal what ever
+2. $ node server.js / or node start
+3. server outputs to the terminal window with the ip, and when clients connect.
 
 # About the game
 

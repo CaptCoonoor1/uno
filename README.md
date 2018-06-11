@@ -14,9 +14,4 @@ The game control is handle by the server, the client will see a table with butto
 | player3     | card1 | card2 | card3 | card4 | card5 |
 | player4     | card1 | card2 | card3 | card4 | card5 |
 | player5     | card1 | card2 | card3 | card4 | card5 |
-|       ---      |   ---    |   ---    |    START GAME   |   ---    |   ---   |
-
-Markdown | Less | Pretty
---- | --- | ---
-*Still* | `renders` | **nicely**
-1 | 2 | 3
+|             |    |       |    START GAME   |       |      |
